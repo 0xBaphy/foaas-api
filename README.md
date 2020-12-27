@@ -1,3 +1,3 @@
 # foaas-api
 
-A simple Go wrapper for [FOAAS](https://foaas.com).\
+A simple Go wrapper for [FOAAS](https://foaas.com).
