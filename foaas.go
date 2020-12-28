@@ -1,4 +1,4 @@
-package foaas_api
+package foaas
 
 import (
 	"fmt"
