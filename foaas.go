@@ -9,9 +9,9 @@ import (
 const endpoint string = "https://foaas.com"
 
 type Client struct {
-	lang   string
-	format string
-	shout  bool
+	Lang   string
+	Format string
+	Shout  bool
 }
 
 func makeRequest(operation string, cl *Client) (string, error) {
@@ -22,7 +22,7 @@ func makeRequest(operation string, cl *Client) (string, error) {
 	}
 
 	var hval string
-	switch cl.format {
+	switch cl.Format {
 	case "json":
 		hval = "application/json"
 		break
@@ -38,10 +38,10 @@ func makeRequest(operation string, cl *Client) (string, error) {
 	req.Header.Set("Accept", hval)
 
 	qry := req.URL.Query()
-	if cl.lang != "" {
-		qry.Add("i18n", cl.lang)
+	if cl.Lang != "" {
+		qry.Add("i18n", cl.Lang)
 	}
-	if cl.shout == true {
+	if cl.Shout == true {
 		qry.Add("shoutcloud", "")
 	}
 	req.URL.RawQuery = qry.Encode()
@@ -58,24 +58,6 @@ func makeRequest(operation string, cl *Client) (string, error) {
 	}
 
 	return string(respBody), nil
-}
-
-/*	Config
-	Changes the default settings.
-	language uses the ISO 639-1 language code to translate the fucks. e.g. "en" for english.
-	format changes the the output string. It can be "text", "html", "json" or "xml".
-	shout uses shoutcloud to make the fucks all caps.
-*/
-func (cl *Client) Config(language *string, format *string, shout *bool) {
-	if language != nil {
-		cl.lang = *language
-	}
-	if shout != nil {
-		cl.shout = *shout
-	}
-	if format != nil {
-		cl.format = *format
-	}
 }
 
 /*	Version
