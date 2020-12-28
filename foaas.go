@@ -60,6 +60,24 @@ func makeRequest(operation string, cl *Client) (string, error) {
 	return string(respBody), nil
 }
 
+/*	Config
+	Changes the default settings.
+	language uses the ISO 639-1 language code to translate the fucks. e.g. "en" for english.
+	format changes the the output string. It can be "text", "html", "json" or "xml".
+	shout uses shoutcloud to make the fucks all caps.
+*/
+func (cl *Client) Config(language *string, format *string, shout *bool) {
+	if language != nil {
+		cl.lang = *language
+	}
+	if shout != nil {
+		cl.shout = *shout
+	}
+	if format != nil {
+		cl.format = *format
+	}
+}
+
 /*	Version
 	Will return content with the current FOAAS version number.
 */
@@ -73,6 +91,7 @@ func (cl *Client) Version() (string, error) {
 func (cl *Client) Operations() (string, error) {
 	return makeRequest("/operations", cl)
 }
+
 /*	Anyway
 	Will return content of the form "Who the fuck are you anyway, <company>,
 	why are you stirring up so much trouble, and, who pays you? - <from>"
@@ -105,6 +124,7 @@ func (cl *Client) Back(name string, from string) (string, error) {
 	url := fmt.Sprintf("/back/%s/%s", name, from)
 	return makeRequest(url, cl)
 }
+
 /*	Bag
 	Will return content of the form "Eat a bag of fucking dicks. - <from>"
 */
@@ -543,17 +563,18 @@ func (cl *Client) Maybe(from string) (string, error) {
 	url := fmt.Sprintf("/Maybe/%s", from)
 	return makeRequest(url, cl)
 }
+
 /*	Me
 	Will return content of the form "Fuck me. - <from>"
 */
 func (cl *Client) Me(from string) (string, error) {
 	url := fmt.Sprintf("/me/%s", from)
-	return	makeRequest(url, cl)
+	return makeRequest(url, cl)
 }
 
 /*	Morning
 	Will return content of the form "Happy fuckin' mornin'! - <from>"
- */
+*/
 func (cl *Client) Morning(from string) (string, error) {
 	url := fmt.Sprintf("/mornin/%s", from)
 	return makeRequest(url, cl)
