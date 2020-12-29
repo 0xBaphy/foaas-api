@@ -21,21 +21,21 @@ func makeRequest(operation string, cl *Client) (string, error) {
 		return "", nil
 	}
 
-	var hval string
+	var val string
 	switch cl.Format {
 	case "json":
-		hval = "application/json"
+		val = "application/json"
 		break
 	case "xml":
-		hval = "application/xml"
+		val = "application/xml"
 		break
 	case "html":
-		hval = "text/html"
+		val = "text/html"
 		break
 	default:
-		hval = "text/plain"
+		val = "text/plain"
 	}
-	req.Header.Set("Accept", hval)
+	req.Header.Set("Accept", val)
 
 	qry := req.URL.Query()
 	if cl.Lang != "" {
